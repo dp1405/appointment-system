@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Practioner = require('../models/practitioner');
 
 // Sign-In Page Rendering
 module.exports.sign_in = function(req, res){
@@ -61,6 +62,21 @@ module.exports.profile = function(req, res){
             console.log('Error in finding the user!');
             req.flash('error', err);
             return res.redirect('back');
+        }
+
+        if(!user){
+            Practioner.findById(req.params.id, function(err, practioner){
+                if(err){
+                    console.log('Error in finding the practioner!');
+                    req.flash('error', err);
+                    return res.redirect('back');
+                }
+
+                return res.render('profile', {
+                    title: "MediAssist | Profile",
+                    user: practioner
+                });
+            });
         }
 
         return res.render('profile', {
