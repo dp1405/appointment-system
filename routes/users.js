@@ -7,7 +7,6 @@ const usersController = require('../controller/users_controller');
 
 // Router-Controller cycle
 router.get('/sign-in', usersController.sign_in); //redirected to controller rendering sign-in page
-router.get('/profile', usersController.profile); //redirected to controller rendering sign-in page
 router.get('/sign-up', usersController.sign_up); //redirected to controller rendering sign-up page
 router.get('/sign-out', usersController.clear_session); //redirected to controller signing out user
 
