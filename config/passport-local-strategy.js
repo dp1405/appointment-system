@@ -2,6 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
+const Practioner = require('../models/practitioner');
 
 passport.use(new LocalStrategy({
         usernameField: 'email_username',
@@ -12,8 +13,23 @@ passport.use(new LocalStrategy({
                 console.log('Error encountered while finding the user:', err);
                 return done(err);
             }
-    
-            if (!user || user.password != password) {
+
+            if(!user){
+                Practioner.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function (err, practioner) {
+                    if (err) {
+                        console.log('Error encountered while finding the practioner:', err);
+                        return done(err);
+                    }
+            
+                    if (!practioner || practioner.password != password) {
+                        console.log('Invalid Email/Username or Password');
+                        req.flash('error', 'Invalid Email/Username or Password');
+                        return done(null, false);
+                    }
+            
+                    return done(null, practioner);
+                });
+            } else if(user.password != password) {
                 console.log('Invalid Email/Username or Password');
                 req.flash('error', 'Invalid Email/Username or Password');
                 return done(null, false);
