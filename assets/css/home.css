@@ -1,0 +1,17 @@
+.myform,
+.first,
+.second {
+    display: flex;
+    flex-direction: column;
+}
+
+.first,
+.second {
+    display: flex;
+    background-color: aqua;
+}
+
+.mycontainer {
+    display: flex;
+    flex-direction: row;
+}
