@@ -31,7 +31,18 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <a href="/users/sign-in" class="btn btn-outline-success" type="submit">Login/signup</a>
+            <div class="container-end">
+
+                <% if (locals.user) { %>
+                    <a class="btn btn-outline-success" href="/">
+                        <%=user.username%>
+                    </a>
+                    <a class="btn btn-outline-success" href="/users/sign-out">LOGOUT</a>
+                    <% } else { %>
+                        <a class="btn btn-outline-success" href="/users/sign-in">Login</a>
+                        <% } %>
+            </div>
+            <!-- <a href="/users/sign-in" class="btn btn-outline-success" type="submit">Login/signup</a> -->
         </div>
     </div>
 </nav>

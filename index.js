@@ -86,7 +86,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // handling the checkAuthenticated function for evry request as a middleware
-// app.use(passport.setAuthenticatedUser);
+app.use(passport.setAuthenticatedUser);
 
 // using the flash middleware
 app.use(flash());
