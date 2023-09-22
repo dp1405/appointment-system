@@ -1,4 +1,4 @@
-// const User = require('../models/user');
+const User = require('../models/user');
 // const contact_mailer = require('../mailers/contact');
 
 module.exports.home = function(req, res){
