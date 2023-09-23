@@ -102,16 +102,35 @@ module.exports.update_profile = async function (req, res) {
     if (req.params.id = req.user.id) {
         try {
             let user = await User.findById(req.params.id);
-            user.name = req.body.name;
-            user.email = req.body.email;
-            user.username = req.body.username;
-            user.weight = req.body.weight;
-            user.height = req.body.height;
-            user.birth_date = req.body.birth_date;
-            user.contact = req.body.contact;
-            user.address = req.body.address;
-            user.history = req.body.history;
-            user.save();
+            if(user.role == 'patient'){
+                user = await Patient.findOne({user: req.params.id});
+                user.name = req.body.name;
+                user.email = req.body.email;
+                user.username = req.body.username;
+                user.gender = req.body.gender;
+                user.weight = req.body.weight;
+                user.height = req.body.height;
+                user.birth_date = req.body.birth_date;
+                user.contact = req.body.contact;
+                user.address = req.body.address;
+                user.history = req.body.history;
+                user.save();
+            } else {
+                user = await Practioner.findOne({user: req.params.id});
+                user.name = req.body.name;
+                user.email = req.body.email;
+                user.username = req.body.username;
+                user.gender = req.body.gender;
+                user.qualification = req.body.qualification;
+                user.specialization = req.body.specialization;
+                user.experience = req.body.experience;
+                user.contact = req.body.contact;
+                user.address = req.body.address;
+                user.fees = req.body.fees;
+                user.opening_time = req.body.opening_time;
+                user.closing_time = req.body.closing_time;
+                user.save();
+            }
             req.flash('success', 'Profile Updated Successfully!');
         } catch (err) {
             req.flash('error', err);
