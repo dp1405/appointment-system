@@ -76,10 +76,8 @@ module.exports.profile = async function (req, res) {
         
         if(user.role == 'practitioner'){
             user = await Practioner.findOne({user: req.params.id});
-            console.log('User: ', user);
         } else {
             user = await Patient.findOne({user: req.params.id});
-            console.log('User: ', user);
         }
 
         return res.render('profile', {
@@ -132,6 +130,8 @@ module.exports.update_profile = async function (req, res) {
                 user.save();
             }
             req.flash('success', 'Profile Updated Successfully!');
+            return res.redirect('back');
+
         } catch (err) {
             req.flash('error', err);
             console.log('Error: ', err);
