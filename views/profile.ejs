@@ -3,21 +3,51 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-4 text-center">
                 <div class="card my-4">
-                    <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <%=user.name%>
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            <%=user.email%>
-                        </h6>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            <%=user.contact%>
-                        </h6>
-                        <h6 class="card-subtitle mb-2 text-muted dark">
-                            <%=(user.role).toUpperCase()%>
-                        </h6>
-                    </div>
+                    <%if (!user.gender){%>
+                        <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
+                        <%}else if(user.id==='patient' ){ if (user.gender=='male' ) {%>
+                            <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
+                            <%}else{%>
+                                <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
+                                <% }}else{ if (user.gender=='male' ) {%>
+                                    <img src="https://img.freepik.com/premium-vector/medical-design_24877-33068.jpg?w=360"
+                                        class="img-fluid"
+                                        alt="https://img.freepik.com/premium-vector/medical-design_24877-33068.jpg?w=360">
+                                    <% }else{ %>
+                                        <img src="https://img.freepik.com/premium-vector/avatar-female-doctor-with-black-hair-doctor-with-stethoscope-vector-illustrationxa_276184-33.jpg"
+                                            class="img-fluid"
+                                            alt="https://img.freepik.com/premium-vector/avatar-female-doctor-with-black-hair-doctor-with-stethoscope-vector-illustrationxa_276184-33.jpg">
+                                        <% }}%>
+                                            <!-- <%if(user.id==='patient'){%>
+                        <% if (user.gender=='male' ) {%>
+                            <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
+                            <%} else {%>
+                                <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
+                                <%}%>
+                                    <%}else{%>
+                                        <% if (user.gender=='male' ) {%>
+                                            <img src="https://img.freepik.com/premium-vector/medical-design_24877-33068.jpg?w=360"
+                                                class="img-fluid"
+                                                alt="https://img.freepik.com/premium-vector/medical-design_24877-33068.jpg?w=360">
+                                            <%} else {%>
+                                                <img src="https://img.freepik.com/premium-vector/avatar-female-doctor-with-black-hair-doctor-with-stethoscope-vector-illustrationxa_276184-33.jpg"
+                                                    class="img-fluid"
+                                                    alt="https://img.freepik.com/premium-vector/avatar-female-doctor-with-black-hair-doctor-with-stethoscope-vector-illustrationxa_276184-33.jpg">
+                                                <%}%> -->
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <%=user.name%>
+                                                </h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">
+                                                    <%=user.email%>
+                                                </h6>
+                                                <h6 class="card-subtitle mb-2 text-muted">
+                                                    <%=user.contact%>
+                                                </h6>
+                                                <h6 class="card-subtitle mb-2 text-muted dark">
+                                                    <%=(user.role).toUpperCase()%>
+                                                </h6>
+                                            </div>
                 </div>
             </div>
             <div class="col-md-6">
