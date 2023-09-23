@@ -1,5 +1,4 @@
 <div class="container">
-    <form id="timeForm" action="/users/update-profile/<%=user.id%>" method="post">
         <div class="row d-flex justify-content-center">
             <div class="col-md-4 text-center">
                 <div class="card my-4">
@@ -39,6 +38,7 @@
                     <div class="card-body">
                         <h2 class="card-title">Profile</h2>
                         <div class="my-4"></div>
+                        <form id="timeForm" action="/users/update-profile/<%=user.id%>" method="post">
                         <div class="form-group my-2">
                             <label for="name">Name:</label>
                             <input class="form-control" type="text" id="name" name="name" value="<%=user.name%>"
@@ -61,19 +61,19 @@
                             </div>
                         </div>
                         <div>
-                            <label for="address">Gender:</label>
-                            <div class="d-flex justify-content-between">
+                            <label for="gender">Gender:</label>
+                            <div class="d-flex justify-content-between" id="gender">
                                 <div>&nbsp;</div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" value="Male" checked>
+                                        id="flexRadioDefault1" value="male" checked>
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Male
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2" value="Male">
+                                        id="flexRadioDefault2" value="female">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Female
                                     </label>
@@ -85,7 +85,7 @@
 
                         <div class="form-group my-2">
                             <label for="dob">Date of Birth:</label>
-                            <input id="datepicker" class="form-control" type="text" id="dob" name="dob"
+                            <input class="form-control" type="text" id="dob" name="dob"
                                 value="<%=user.birth_date%>" placeholder="Select Date of Birth">
                         </div>
                         <div class="form-group my-2">
@@ -94,12 +94,19 @@
                                 rows="4" placeholder="Enter your text here..."><%=user.address%></textarea>
                         </div>
 
-                        <%if(user.id==='profile'){%>
+                        <%if(user.role==='patient'){%>
                             <div class="form-group my-2">
                                 <label for="weight">Weight:</label>
                                 <input class="form-control" type="text" id="weight" name="weight"
                                     value="<%=user.weight%>" placeholder="e.g. 45 (in kg)">
                                 <p id="weight-feedback"></p>
+                            </div>
+
+                            <div class="form-group my-2">
+                                <label for="height">Height:</label>
+                                <input class="form-control" type="text" id="height" name="height"
+                                    value="<%=user.height%>" placeholder="e.g. 150 (in cms)">
+                                <p id="height-feedback"></p>
                             </div>
 
                             <div class="form-group my-2">
@@ -118,7 +125,7 @@
                                     <p id="contact-feedback"></p>
                                 </div>
 
-                                <%if(user.id!=='profile'){%>
+                                <%if(user.role!=='patient'){%>
                                     <div class="form-group my-2">
                                         <label for="address">Experience:</label>
                                         <textarea class="form-control" id="address" name="address"
@@ -155,11 +162,13 @@
                                     </div>
                                     <div class="text-danger" id="validationMessage"></div>
                                     <%}%>
+                                    <div class="text-center">
+                                        <button class="btn btn-success my-4" type="submit">Submit</button>
+                                    </div>                                   
 
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-success my-4" type="submit">Submit</button>
-                    </div>
+                    </form>
+                </div>
+                    
                 </div>
             </div>
     </form>
