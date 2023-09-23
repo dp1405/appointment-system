@@ -1,11 +1,11 @@
 <div class="container">
-    <form id="timeForm" action="/users/update-profile/<%=user.id%>" method="post">
+    <form id="timeForm" action="/users/update-profile/<%=user.id%>/" method="post">
         <div class="row d-flex justify-content-center">
             <div class="col-md-4 text-center">
                 <div class="card my-4">
                     <%if (!user.gender){%>
                         <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
-                        <%}else if(user.id==='patient' ){ if (user.gender==='male' ) {%>
+                        <%}else if(user.role==='patient' ){ if (user.gender==='male' ) {%>
                             <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
                             <%}else{%>
                                 <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
@@ -94,7 +94,7 @@
                                 rows="4" placeholder="Enter your text here..."><%=user.address%></textarea>
                         </div>
 
-                        <%if(user.id==='profile'){%>
+                        <%if(user.role==='patient'){%>
                             <div class="form-group my-2">
                                 <label for="weight">Weight:</label>
                                 <input class="form-control" type="text" id="weight" name="weight"
@@ -118,7 +118,7 @@
                                     <p id="contact-feedback"></p>
                                 </div>
 
-                                <%if(user.id!=='profile'){%>
+                                <%if(user.role!=='profile'){%>
                                     <div class="form-group my-2">
                                         <label for="address">Experience:</label>
                                         <textarea class="form-control" id="address" name="address"
@@ -157,10 +157,10 @@
                                     <%}%>
 
                     </div>
-                    <div class="text-center">
-                        <button class="btn btn-success my-4" type="submit">Submit</button>
-                    </div>
                 </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-success my-4" type="submit">Submit</button>
             </div>
     </form>
 </div>
