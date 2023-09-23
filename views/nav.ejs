@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="/about">About_Us</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -31,7 +31,18 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <a href="/users/sign-in" class="btn btn-outline-success" type="submit">Login/signup</a>
+            <div class="container-end">
+
+                <% if (locals.user) { %>
+                    <a class="btn btn-outline-success" href="/users/profile/<%=locals.user.id%>">
+                        <%=user.username%>
+                    </a>
+                    <a class="btn btn-outline-success" href="/users/sign-out">LOGOUT</a>
+                    <% } else { %>
+                        <a class="btn btn-outline-success" href="/users/sign-in">Login</a>
+                        <% } %>
+            </div>
+            <!-- <a href="/users/sign-in" class="btn btn-outline-success" type="submit">Login/signup</a> -->
         </div>
     </div>
 </nav>
