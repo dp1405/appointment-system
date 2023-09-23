@@ -1,56 +1,39 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const User = require('../models/user'); // Assuming the path to your user model
+const Practitioner = require('../models/practitioner'); // Assuming the path to your practitioner model
 
-const User = require('../models/user');
-
-const Practitioner = require('../models/practitioner');
-
-passport.use(new LocalStrategy({
+passport.use('local', new LocalStrategy({
     usernameField: 'email_username',
     passReqToCallback: true
-}, function(req, email_username, password, done) {
-    User.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function(err, user) {
+}, function (req, email_username, password, done) {
+    // First, check if it's a patient
+    User.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function (err, user) {
         if (err) {
             console.log('Error encountered while finding the user:', err);
             return done(err);
         }
 
-        if (!user) {
-            return checkPractitioner(email_username, password, req, done);
-        }
-
-        if (user.password!=password) { // Assuming you have a validPassword method
+        if (!user || user.password !== password) {
             console.log('Invalid Email/Username or Password');
             req.flash('error', 'Invalid Email/Username or Password');
             return done(null, false);
         }
-        // console.log('User is a patient');
+
+        // User authenticated, set req.user and return it
+        req.user = user;
         return done(null, user);
     });
 }));
 
-function checkPractitioner(email_username, password, req, done) {
-    Practitioner.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function(err, user) {
-        if (err) {
-            console.log('Error encountered while finding the practitioner:', err);
-            return done(err);
-        }
-
-        if (!user) {
-            console.log('Invalid Email/Username or Password');
-            req.flash('error', 'Invalid Email/Username or Password');
-            return done(null, false);
-        }
-
-        if (user.password!=password) { // Assuming you have a validPassword method
-            console.log('Invalid Email/Username or Password');
-            req.flash('error', 'Invalid Email/Username or Password');
-            return done(null, false);
-        }
-        // console.log('User is a practitioner');
-        return done(null, user);
-    });
-}
+// using authentication as middleware 
+passport.setAuthenticatedUser = function (req, res, next) {
+    if (req.isAuthenticated()) {
+        // If the user is authenticated, set res.locals.user
+        res.locals.user = req.user;
+    }
+    next();
+};
 
 // serializing the user to decide which key is to be kept in the cookies
 passport.serializeUser(function(user, done){
@@ -111,21 +94,62 @@ passport.checkPatientPractitioner = function(req, res, next){
     return res.redirect('/users/sign-in');
 }
 
-// using authentication as middleware 
-passport.setAuthenticatedUser = function(req, res, next){
-    // console.log(req.user);
-    if(req.isAuthenticated()){
-        // if the user is authenticated then req already contains the data of the user which we will further send to the 
-        // views to make use of it
-        if(req.user.role == 'patient'){
-            // console.log('User is a patient');
-            res.locals.user = req.user;
-        } else {
-            console.log('User is a practitioner');
-            res.locals.user = req.practitioner;
-        }
-    }
-    next();
-}
-
 module.exports = passport;
+
+
+
+
+// passport.use('local-user', new LocalStrategy({
+//     usernameField: 'email_username',
+//     passReqToCallback: true
+// }, function (req, email_username, password, done) {
+//     User.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function (err, user) {
+//         if (err) {
+//             console.log('Error encountered while finding the user:', err);
+//             return done(err);
+//         }
+
+//         if (!user) {
+//             // User not found, return false
+//             return done(null, false);
+//         }
+
+//         // Check the password
+//         if (user.password !== password) {
+//             console.log('Invalid Email/Username or Password');
+//             return done(null, false);
+//         }
+
+//         // User authenticated, set req.user and return it
+//         req.user = user;
+//         return done(null, user);
+//     });
+// }));
+
+// passport.use('local-practitioner', new LocalStrategy({
+//     usernameField: 'email_username',
+//     passReqToCallback: true
+// }, function (req, email_username, password, done) {
+//     Practitioner.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function (err, user) {
+//         if (err) {
+//             console.log('Error encountered while finding the practitioner:', err);
+//             return done(err);
+//         }
+
+//         if (!user) {
+//             // Practitioner not found, return false
+//             return done(null, false);
+//         }
+
+//         // Check the password
+//         if (user.password !== password) {
+//             console.log('Invalid Email/Username or Password');
+//             return done(null, false);
+//         }
+
+//         // Practitioner authenticated, set req.user and return it
+//         req.user = user;
+//         console.log(user);
+//         return done(null, user);
+//     });
+// }));

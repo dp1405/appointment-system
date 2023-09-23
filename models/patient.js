@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const practitionerScehma = new mongoose.Schema({
+const patientScehma = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -34,28 +34,23 @@ const practitionerScehma = new mongoose.Schema({
     address: {
         type: String
     },
-    experience: {
+    weight: {
         type: Number
     },
-    qualification: {
-        type: String
-    },
-    specialization: {
-        type: String
-    },
-    opening_time: {
-        type: Date
-    },
-    closing_time: {
-        type: Date
-    },
-    fees: {
+    height: {
         type: Number
     },
+    birth_date: {
+        type: Date
+    },
+    history: {
+        type: String
+    },
+
 },{
     timestamps: true
 });
 
-const Practitioner = mongoose.model('Practitioner', practitionerScehma);
+const Patient = mongoose.model('Patient', patientScehma);
 
-module.exports = Practitioner;
+module.exports = Patient;

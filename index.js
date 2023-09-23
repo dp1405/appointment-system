@@ -74,7 +74,7 @@ app.use(session({
     },
     // storing the cookie-data in mongo db
     store: MongoStore.create({
-        mongoUrl: process.env.MONGOURL || 'mongodb://127.0.0.1:27017/ds-blog',
+        mongoUrl: process.env.MONGOURL || 'mongodb://127.0.0.1:27017/appointment-scheduler',
         autoRemove: 'disabled'
     }, function(err){
         console.log(err || 'connect-mongo setup ok!!');
