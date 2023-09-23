@@ -2,6 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
+
 const Practitioner = require('../models/practitioner');
 
 passport.use(new LocalStrategy({
@@ -50,7 +51,6 @@ function checkPractitioner(email_username, password, req, done) {
         return done(null, user);
     });
 }
-
 
 // serializing the user to decide which key is to be kept in the cookies
 passport.serializeUser(function(user, done){
