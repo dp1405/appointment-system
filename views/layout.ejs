@@ -7,11 +7,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css'>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900">
+    <link rel="stylesheet" type="text/css" href="/css/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="/css/_header.css">
     <link rel="stylesheet" type="text/css" href="/css/layout.css">
     <link rel="stylesheet" type="text/css" href="/css/_footer.css">
+    <link rel="stylesheet" type="text/css" href="/css/about.css">
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="/js/_footer.bootstrap.min.js"></script>
+    <script src="/js/_footer.main.js"></script>
+    <script src="/js/_footer.js"></script>
+
     <!-- <link rel="stylesheet" type="text/css" href="/css/blogs_footer.css"> -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -23,41 +34,41 @@
 <body>
 
     <%- include('./nav.ejs') %>
-        <%- include('./_header.ejs') %>
 
-            <main>
-                <%- body %>
-            </main>
+        <main>
+            <%- body %>
+        </main>
 
 
-            <%- script %>
+        <%- script %>
 
-                <script>
+            <script>
         <% if (flash.success && flash.success.length > 0) { %>
-                        new Noty({
-                            theme: 'relax',
-                            text: '<%=flash.success%>',
-                            type: 'success',
-                            layout: 'topRight',
-                            timeout: 1500
-                        }).show();
+                    new Noty({
+                        theme: 'relax',
+                        text: '<%=flash.success%>',
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
         <% } %>
 
         <% if (flash.error && flash.error.length > 0) { %>
-                        new Noty({
-                            theme: 'relax',
-                            text: '<%=flash.error%>',
-                            type: 'error',
-                            layout: 'topRight',
-                            timeout: 1500
-                        }).show();
+                    new Noty({
+                        theme: 'relax',
+                        text: '<%=flash.error%>',
+                        type: 'error',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
         <% } %>
-                </script>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-                    crossorigin="anonymous"></script>
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
 
 
+            <%- include('./_footer.ejs') %>
 </body>
 
 </html>
