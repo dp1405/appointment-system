@@ -2,43 +2,55 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
-const Practioner = require('../models/practitioner');
+
+const Practitioner = require('../models/practitioner');
 
 passport.use(new LocalStrategy({
-        usernameField: 'email_username',
-        passReqToCallback: true
-    }, function(req, email_username, password, done){
-        User.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function (err, user) {
-            if (err) {
-                console.log('Error encountered while finding the user:', err);
-                return done(err);
-            }
+    usernameField: 'email_username',
+    passReqToCallback: true
+}, function(req, email_username, password, done) {
+    User.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function(err, user) {
+        if (err) {
+            console.log('Error encountered while finding the user:', err);
+            return done(err);
+        }
 
-            if(!user){
-                Practioner.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function (err, practioner) {
-                    if (err) {
-                        console.log('Error encountered while finding the practioner:', err);
-                        return done(err);
-                    }
-            
-                    if (!practioner || practioner.password != password) {
-                        console.log('Invalid Email/Username or Password');
-                        req.flash('error', 'Invalid Email/Username or Password');
-                        return done(null, false);
-                    }
-            
-                    return done(null, practioner);
-                });
-            } else if(user.password != password) {
-                console.log('Invalid Email/Username or Password');
-                req.flash('error', 'Invalid Email/Username or Password');
-                return done(null, false);
-            }
-    
-            return done(null, user);
-          });
-    }
-));
+        if (!user) {
+            return checkPractitioner(email_username, password, req, done);
+        }
+
+        if (user.password!=password) { // Assuming you have a validPassword method
+            console.log('Invalid Email/Username or Password');
+            req.flash('error', 'Invalid Email/Username or Password');
+            return done(null, false);
+        }
+        // console.log('User is a patient');
+        return done(null, user);
+    });
+}));
+
+function checkPractitioner(email_username, password, req, done) {
+    Practitioner.findOne({ $or: [{ email: email_username }, { username: email_username }] }, function(err, user) {
+        if (err) {
+            console.log('Error encountered while finding the practitioner:', err);
+            return done(err);
+        }
+
+        if (!user) {
+            console.log('Invalid Email/Username or Password');
+            req.flash('error', 'Invalid Email/Username or Password');
+            return done(null, false);
+        }
+
+        if (user.password!=password) { // Assuming you have a validPassword method
+            console.log('Invalid Email/Username or Password');
+            req.flash('error', 'Invalid Email/Username or Password');
+            return done(null, false);
+        }
+        // console.log('User is a practitioner');
+        return done(null, user);
+    });
+}
 
 // serializing the user to decide which key is to be kept in the cookies
 passport.serializeUser(function(user, done){
@@ -67,7 +79,7 @@ passport.checkAuthentication = function(req, res, next){
 }
 
 // check if the user is a builder
-passport.checkBuilder = function(req, res, next){
+passport.checkPatient = function(req, res, next){
     if(req.isAuthenticated()){
         if(req.user.role == 'builder'){
             return next();
@@ -77,10 +89,10 @@ passport.checkBuilder = function(req, res, next){
     return res.redirect('/users/sign-in');
 }
 
-// check if the user is a client
-passport.checkClient = function(req, res, next){
+// check if the user is a Practitioner
+passport.checkPractitioner = function(req, res, next){
     if(req.isAuthenticated()){
-        if(req.user.role == 'client'){
+        if(req.user.role == 'practitioner'){
             return next();
         }
         return res.redirect('back');
@@ -88,10 +100,10 @@ passport.checkClient = function(req, res, next){
     return res.redirect('/users/sign-in');
 }
 
-// check if user is a builder or a client
-passport.checkBuilderClient = function(req, res, next){
+// check if user is a builder or a Practitioner
+passport.checkPatientPractitioner = function(req, res, next){
     if(req.isAuthenticated()){
-        if(req.user.role == 'client' || req.user.role == 'builder'){
+        if(req.user.role == 'practitioner' || req.user.role == 'patient'){
             return next();
         }
         return res.redirect('back');
@@ -101,10 +113,17 @@ passport.checkBuilderClient = function(req, res, next){
 
 // using authentication as middleware 
 passport.setAuthenticatedUser = function(req, res, next){
+    // console.log(req.user);
     if(req.isAuthenticated()){
         // if the user is authenticated then req already contains the data of the user which we will further send to the 
         // views to make use of it
-        res.locals.user = req.user;
+        if(req.user.role == 'patient'){
+            // console.log('User is a patient');
+            res.locals.user = req.user;
+        } else {
+            console.log('User is a practitioner');
+            res.locals.user = req.practitioner;
+        }
     }
     next();
 }
