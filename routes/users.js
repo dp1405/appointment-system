@@ -12,10 +12,19 @@ router.get('/sign-out', usersController.clear_session); //redirected to controll
 router.get('/profile/:id', usersController.profile); //redirected to controller signing out user
 router.post('/update-profile/:id', usersController.update_profile); //redirected to controller updating user profile
 
-router.post('/create-session', passport.authenticate(
-    'local',
-    { failureRedirect: '/users/sign-in' }
-), usersController.create_session); //redirected to controller creating session for verified user
+// router.post('/create-session', passport.authenticate(
+//     'local',
+//     { failureRedirect: '/users/sign-in' }
+// ), usersController.create_session); //redirected to controller creating session for verified user
+
+router.post('/create-session-user', passport.authenticate('local-user', {
+    failureRedirect: '/users/sign-in'
+}), usersController.create_session); //redirected to controller creating session for verified user
+
+// For practitioner login
+router.post('/create-session-practitioner', passport.authenticate('local-practitioner', {
+    failureRedirect: '/users/sign-in'
+}), usersController.create_session); //redirected to controller creating session for verified user
 
 router.post('/new-user', usersController.new_user); //redirected to controller registering new user
 
