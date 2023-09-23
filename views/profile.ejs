@@ -1,44 +1,44 @@
 <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-4 text-center">
-                <div class="card my-4">
-                    <%if (!user.gender){%>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="card my-4">
+                <%if (user.gender){%>
+                    <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
+                    <%}else if(user.id==='patient' ){ if (user.gender==='male' ) {%>
                         <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
-                        <%}else if(user.id==='patient' ){ if (user.gender==='male' ) {%>
+                        <%}else{%>
                             <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
-                            <%}else{%>
-                                <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
-                                <% }}else{ if (user.gender==='male' ) {%>
-                                    <img src="https://img.freepik.com/premium-vector/medical-design_24877-33068.jpg?w=360"
+                            <% }}else{ if (user.gender!=='male' ) {%>
+                                <img src="https://img.freepik.com/premium-vector/medical-design_24877-33068.jpg?w=360"
+                                    class="img-fluid"
+                                    alt="https://img.freepik.com/premium-vector/medical-design_24877-33068.jpg?w=360">
+                                <% }else{ %>
+                                    <img src="https://img.freepik.com/premium-vector/avatar-female-doctor-with-black-hair-doctor-with-stethoscope-vector-illustrationxa_276184-33.jpg"
                                         class="img-fluid"
-                                        alt="https://img.freepik.com/premium-vector/medical-design_24877-33068.jpg?w=360">
-                                    <% }else{ %>
-                                        <img src="https://img.freepik.com/premium-vector/avatar-female-doctor-with-black-hair-doctor-with-stethoscope-vector-illustrationxa_276184-33.jpg"
-                                            class="img-fluid"
-                                            alt="https://img.freepik.com/premium-vector/avatar-female-doctor-with-black-hair-doctor-with-stethoscope-vector-illustrationxa_276184-33.jpg">
-                                        <% }}%>
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <%=user.name%>
-                                                </h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">
-                                                    <%=user.email%>
-                                                </h6>
-                                                <h6 class="card-subtitle mb-2 text-muted">
-                                                    <%=user.contact%>
-                                                </h6>
-                                                <h6 class="card-subtitle mb-2 text-muted dark">
-                                                    <%=(user.role).toUpperCase()%>
-                                                </h6>
-                                            </div>
-                </div>
+                                        alt="https://img.freepik.com/premium-vector/avatar-female-doctor-with-black-hair-doctor-with-stethoscope-vector-illustrationxa_276184-33.jpg">
+                                    <% }}%>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <%=user.name%>
+                                            </h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">
+                                                <%=user.email%>
+                                            </h6>
+                                            <h6 class="card-subtitle mb-2 text-muted">
+                                                <%=user.contact%>
+                                            </h6>
+                                            <h6 class="card-subtitle mb-2 text-muted dark">
+                                                <%=(user.role).toUpperCase()%>
+                                            </h6>
+                                        </div>
             </div>
-            <div class="col-md-6">
-                <div class="card my-4">
-                    <div class="card-body">
-                        <h2 class="card-title">Profile</h2>
-                        <div class="my-4"></div>
-                        <form id="timeForm" action="/users/update-profile/<%=user.id%>" method="post">
+        </div>
+        <div class="col-md-6">
+            <div class="card my-4">
+                <div class="card-body">
+                    <h2 class="card-title">Profile</h2>
+                    <div class="my-4"></div>
+                    <form id="timeForm" action="/users/update-profile/<%=user.id%>" method="post">
                         <div class="form-group my-2">
                             <label for="name">Name:</label>
                             <input class="form-control" type="text" id="name" name="name" value="<%=user.name%>"
@@ -85,8 +85,8 @@
 
                         <div class="form-group my-2">
                             <label for="dob">Date of Birth:</label>
-                            <input class="form-control" type="text" id="dob" name="dob"
-                                value="<%=user.birth_date%>" placeholder="Select Date of Birth">
+                            <input class="form-control" type="text" id="dob" name="dob" value="<%=user.birth_date%>"
+                                placeholder="Select Date of Birth">
                         </div>
                         <div class="form-group my-2">
                             <label for="address">Address:</label>
@@ -127,22 +127,22 @@
 
                                 <%if(user.role!=='patient'){%>
                                     <div class="form-group my-2">
-                                        <label for="address">Experience:</label>
-                                        <textarea class="form-control" id="address" name="address"
-                                            value="<%=user.address%>" rows="3"
-                                            placeholder="Enter your text here..."><%=user.address%></textarea>
+                                        <label for="experience">Experience:</label>
+                                        <textarea class="form-control" id="experience" name="experience"
+                                            value="<%=user.experience%>" rows="3"
+                                            placeholder="Enter your text here..."><%=user.experience%></textarea>
                                     </div>
                                     <div class="form-group my-2">
-                                        <label for="address">Qualification:</label>
-                                        <textarea class="form-control" id="address" name="address"
-                                            value="<%=user.address%>" rows="3"
-                                            placeholder="Enter your text here..."><%=user.address%></textarea>
+                                        <label for="qualification">Qualification:</label>
+                                        <textarea class="form-control" id="qualification" name="qualification"
+                                            value="<%=user.qualification%>" rows="3"
+                                            placeholder="Enter your text here..."><%=user.qualification%></textarea>
                                     </div>
                                     <div class="form-group my-2">
-                                        <label for="address">Specialization:</label>
-                                        <textarea class="form-control" id="address" name="address"
-                                            value="<%=user.address%>" rows="3"
-                                            placeholder="Enter your text here..."><%=user.address%></textarea>
+                                        <label for="specialization">Specialization:</label>
+                                        <textarea class="form-control" id="specialization" name="specialization"
+                                            value="<%=user.specialization%>" rows="3"
+                                            placeholder="Enter your text here..."><%=user.specialization%></textarea>
                                     </div>
 
                                     <div class="form-group my-2">
@@ -162,14 +162,14 @@
                                     </div>
                                     <div class="text-danger" id="validationMessage"></div>
                                     <%}%>
-                                    <div class="text-center">
-                                        <button class="btn btn-success my-4" type="submit">Submit</button>
-                                    </div>                                   
+                                        <div class="text-center">
+                                            <button class="btn btn-success my-4" type="submit">Submit</button>
+                                        </div>
 
                     </form>
                 </div>
-                    
-                </div>
+
             </div>
-    </form>
-</div>
+        </div>
+        </form>
+    </div>
