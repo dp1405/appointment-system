@@ -2,48 +2,25 @@
 <link rel="stylesheet" href="/css/sign_in.css">
 
 <div id="sign-in-container">
-    <form id="sign-in-form" method="post">
-        <label for="email_username">Username or E-Mail</label> <br>
-        <input type="text" id="email_username" name="email_username" placeholder="username/email@abc.com">
-
-        <br>
-
-        <label for="password">Password</label> <br>
-        <input type="password" id="password" name="password">
-
-        <br>
-
-        <div>
-            <label for="role">You are a</label>
-            <div id="role">
-                <input type="radio" id="patient" name="role" value="patient" onchange="updateFormAction()">
-                <label for="option1">Patient</label>
-
-                <input type="radio" id="practitioner" name="role" value="practitioner" onchange="updateFormAction()">
-                <label for="option2">Medical Practitioner</label>
-            </div>
-        </div>
-
-        <button type="submit" id="submit">LOGIN</button>
+    <form action="/users/create-session" method="post">
+            <label for="email_username">Username or E-Mail</label> <br>
+            <input type="text" id="email_username" name="email_username" placeholder="username/email@abc.com">
+    
+            <br>
+    
+            <label for="password">Password</label> <br>
+            <input type="password" id="password" name="password">
+            
+            <br>
+            
+            <button type="submit" id="submit">LOGIN</button>
     </form>
 
     <div id="newUser">
-        <p>New User?</p>
+        <p>New User?</p> 
         <div>
-            <!-- Use a placeholder URL for now, it will be updated dynamically -->
-            <a id="registration-link" href="#">Register</a>
+            <a href="/users/sign-up">Register</a>
         </div>
     </div>
-</div>
 
-<script>
-    function updateFormAction() {
-        const form = document.getElementById('sign-in-form');
-        const role = document.querySelector('input[name="role"]:checked').value;
-        if (role === 'patient') {
-            form.action = '/users/create-session-user';
-        } else if (role === 'practitioner') {
-            form.action = '/users/create-session-practitioner';
-        }
-    }
-</script>
+</div>

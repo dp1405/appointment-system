@@ -20,26 +20,7 @@ const userScehma = new mongoose.Schema({
     role: {
         type: String,
         require: true
-    },
-    contact: {
-        type: String
-    },
-    address: {
-        type: String
-    },
-    weight: {
-        type: Number
-    },
-    height: {
-        type: Number
-    },
-    birth_date: {
-        type: Date
-    },
-    history: {
-        type: String
-    },
-
+    }
 },{
     timestamps: true
 });
