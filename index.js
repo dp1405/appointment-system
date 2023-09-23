@@ -65,7 +65,7 @@ app.set('views', './views');
 // establishing cookie
 const secret = crypto.randomBytes(32).toString('hex');
 app.use(session({
-    name: 'Ds-Blog',
+    name: 'MediAssist',
     secret: secret,
     saveUninitialized: false,
     resave: false,

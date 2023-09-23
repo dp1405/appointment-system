@@ -40,17 +40,49 @@ module.exports.new_user = function(req, res){
                 req.flash('error', 'User already exists!');
                 return res.render('sign-in');
             }
-            
-            User.create(req.body, function(err, user){
-                if(err){
-                    console.log('Error in getting the user while signing up!'); 
-                    req.flash('error', err);
-                    return res.redirect('back');
-                }
+
+            if(!user){
                 
-                req.flash('success', 'Account registered successfully!');
-                return res.redirect('/');
-            });
+                Practioner.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] }, function(err, practioner){
+                    if(err){
+                        console.log('Error in getting the practioner while signing up!');
+                        req.flash('error', err);
+                        return res.redirect('back');
+                    }
+
+                    if(practioner){
+                        console.log('User already exists with the entered Username/Email, go Sign-In');
+                        req.flash('error', 'User already exists!');
+                        return res.render('sign-in');
+                    }
+
+                    if(req.body.role == 'practitioner'){
+                        Practioner.create(req.body, function(err, practioner){
+                            if(err){
+                                console.log('Error in getting the practioner while signing up!'); 
+                                req.flash('error', err);
+                                return res.redirect('back');
+                            }
+                            
+                            req.flash('success', 'Account registered successfully!');
+                            return res.redirect('/');
+    
+                        });
+                    } else {                    
+                        User.create(req.body, function(err, user){
+                            if(err){
+                                console.log('Error in getting the user while signing up!'); 
+                                req.flash('error', err);
+                                return res.redirect('back');
+                            }
+                            
+                            req.flash('success', 'Account registered successfully!');
+                            return res.redirect('/');
+                        });
+                    }
+                });
+
+            }
         });
 }
 
