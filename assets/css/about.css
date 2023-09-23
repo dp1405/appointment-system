@@ -922,7 +922,7 @@ section {
 /* About Section - Home Page
   ------------------------------*/
 .about {
-    --background-color: rgba(159, 226, 191,0.15);
+    --background-color: rgba(159, 226, 191,0.05);
 }
 
 
@@ -937,9 +937,14 @@ section {
     display: inline-block;
 }
 
-    /* .about .content .custom {
-        --background-color: rgba(159, 226, 191,0.05);
-    } */
+/**/
+.mydiv{
+    transition: all 0.2s;
+}
+.mydiv:hover{
+    transform: scale(1.1);
+}
+/**/
 
 .about .content h2 {
     font-weight: 700;
@@ -986,11 +991,15 @@ section {
     border-radius: 10px;
     transition: all 0.3s ease-out 0s;
     background-color: #fff;
+    transition: all 0.15s;
+}
+.about .icon-box:hover {
+    transform: scale(1.015);
 }
 
 .about .icon-box i {
-    width: 80px;
-    height: 80px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
