@@ -25,6 +25,9 @@ const patientScehma = new mongoose.Schema({
         type: String,
         require: true
     },
+    gender: {
+        type: String
+    },
     contact: {
         type: String
     },
