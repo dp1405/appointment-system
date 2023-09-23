@@ -3,19 +3,19 @@ const User = require('../models/user');
 
 module.exports.home = function(req, res){
     return res.render('home', {
-        title: "Rodic | Home"
+        title: "{NAME} Clinics"
     });
 }
 
 module.exports.about = function(req, res){
     return res.render('about', {
-        title: "Rodic | About"
+        title: "{NAME} Clinics | About"
     });
 }
 
 module.exports.contact = function(req, res){
     return res.render('contact', {
-        title: "Rodic | Contact"
+        title: "{NAME} Clinics | Contact US"
     });
 }
 
