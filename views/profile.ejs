@@ -1,7 +1,7 @@
-<form class="myform" action="/users/update-profile/<%=user.id%>" method="post">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
+<div class="container">
+    <form action="/users/update-profile/<%=user.id%>" method="post">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4 text-center">
                 <div class="card my-4">
                     <img src="/images/ll.avif" class="img-fluid" alt="/images/ll.avif">
                     <div class="card-body">
@@ -14,6 +14,12 @@
                         <h6 class="card-subtitle mb-2 text-muted">
                             <%=user.contact%>
                         </h6>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <%=user.role%>
+                        </h6>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <p class="mt-3" id="ageResult">Age:</p>
+                        </h6>
                     </div>
                 </div>
             </div>
@@ -21,6 +27,7 @@
                 <div class="card my-4">
                     <div class="card-body">
                         <h2 class="card-title">Profile</h2>
+                        <div class="my-4"></div>
                         <div class="form-group my-2">
                             <label for="name">Name:</label>
                             <input class="form-control" type="text" id="name" name="name" value="<%=user.name%>"
@@ -43,41 +50,43 @@
                             </div>
                         </div>
                         <div class="form-group my-2">
-                            <label for="role">Role:</label>
-                            <input class="form-control" type="text" id="role" name="role" value="<%=user.role%>"
-                                placeholder="Enter your role" required>
-                        </div>
-                        <div class="form-group my-2">
                             <label for="address">Address:</label>
                             <textarea class="form-control" id="address" name="address" value="<%=user.address%>"
-                                rows="4" placeholder="Enter your text here..." required></textarea>
+                                rows="4" placeholder="Enter your text here..." required><%=user.address%></textarea>
                         </div>
                         <div class="form-group my-2">
                             <label for="weight">Weight:</label>
                             <input class="form-control" type="text" id="weight" name="weight" value="<%=user.weight%>"
-                                placeholder="Enter your weight" required>
+                                placeholder="e.g. 45 (in kg)" required>
+                            <p id="weight-feedback"></p>
+
                         </div>
                         <div class="form-group my-2">
                             <label for="dob">Date of Birth:</label>
                             <input id="datepicker" class="form-control" type="text" id="dob" name="dob"
-                                value="<%=user.birth_date%>" placeholder="Enter your Date of Birth" required>
+                                value="<%=user.birth_date%>" placeholder="Select Date of Birth" required>
                         </div>
                         <div class="form-group my-2">
                             <label for="history">History:</label>
                             <input class="form-control" type="text" id="history" name="history"
                                 value="<%=user.history%>" placeholder="Enter your history" required>
                         </div>
+
                         <div class="form-group my-2">
                             <label for="contact">Contact No.:</label>
-                            <input class="form-control" type="text" id="contact" name="contact"
-                                value="<%=user.contact%>" placeholder="Enter your contact number" required>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">+91</span>
+                                <input class="form-control" type="text" id="contact" name="contact"
+                                    value="<%=user.contact%>" placeholder="Enter your contact number" required>
+                            </div>
+                            <p id="contact-feedback"></p>
+
                         </div>
                     </div>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-success my-4" type="submit">Submit</button>
+                    <div class="text-center">
+                        <button class="btn btn-success my-4" type="submit">Submit</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</form>
+    </form>
+</div>

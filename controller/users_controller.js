@@ -2,80 +2,84 @@ const User = require('../models/user');
 const Practioner = require('../models/practitioner');
 
 // Sign-In Page Rendering
-module.exports.sign_in = function(req, res){
+module.exports.sign_in = function (req, res) {
     return res.render('sign_in', {
         title: "MediAssist | Sign In"
     });
 }
 
 // Sign-Up Page Rendering
-module.exports.sign_up = function(req, res){
+module.exports.sign_up = function (req, res) {
     return res.render('sign_up', {
         title: "MediAssist | Register"
     });
 }
 
 // Create Session for Verified User
-module.exports.create_session = function(req, res){
+module.exports.create_session = function (req, res) {
     req.flash('success', 'Logged In Successfully!');
     return res.redirect('/');
 }
 
 // Register New User
-module.exports.new_user = function(req, res){
-    if(req.body.re_password != req.body.password){
+module.exports.new_user = function (req, res) {
+    if (req.body.re_password != req.body.password) {
         req.flash('error', 'Passwords are not matching');
         return res.redirect('back');
     }
     User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] },
-        function(err, user){
-            if(err){
+        function (err, user) {
+            if (err) {
                 console.log('Error in getting the user while signing up!');
                 req.flash('error', err);
                 return res.redirect('back');
             }
 
-            if(user){
+            if (user) {
                 console.log('User already exists with the entered Username/Email, go Sign-In');
                 req.flash('error', 'User already exists!');
-                return res.render('sign-in');
+                return res.render('sign_in', {
+                    title: 'MediAssist | Sign-In'
+                });
             }
 
-            if(!user){
-                
-                Practioner.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] }, function(err, practioner){
-                    if(err){
+            if (!user) {
+
+                Practioner.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] }, function (err, practioner) {
+                    if (err) {
                         console.log('Error in getting the practioner while signing up!');
                         req.flash('error', err);
                         return res.redirect('back');
                     }
 
-                    if(practioner){
+                    if (practioner) {
                         console.log('User already exists with the entered Username/Email, go Sign-In');
                         req.flash('error', 'User already exists!');
-                        return res.render('sign-in');
+                        return res.render('sign_in', {
+                            title: 'MediAssist | Sign-In'
+                        });
                     }
 
-                    if(req.body.role == 'practitioner'){
-                        Practioner.create(req.body, function(err, practioner){
-                            if(err){
-                                console.log('Error in getting the practioner while signing up!'); 
+                    if (req.body.role == 'practitioner') {
+                        Practioner.create(req.body, function (err, practioner) {
+                            if (err) {
+                                console.log('Error in getting the practioner while signing up!');
                                 req.flash('error', err);
                                 return res.redirect('back');
                             }
-                            
+
                             req.flash('success', 'Account registered successfully!');
                             return res.redirect('/');
-    
+
                         });
-                    } else {                    
-                        User.create(req.body, function(err, user){
-                            if(err){
-                                console.log('Error in getting the user while signing up!'); 
+                    } else {
+                        User.create(req.body, function (err, user) {
+                            if (err) {
+                                console.log('Error in getting the user while signing up!');
                                 req.flash('error', err);
                                 return res.redirect('back');
                             }
-                            
+
                             req.flash('success', 'Account registered successfully!');
                             return res.redirect('/');
                         });
@@ -87,18 +91,18 @@ module.exports.new_user = function(req, res){
 }
 
 // Profile section for User
-module.exports.profile = function(req, res){
+module.exports.profile = function (req, res) {
 
-    User.findById(req.params.id, function(err, user){
-        if(err){
+    User.findById(req.params.id, function (err, user) {
+        if (err) {
             console.log('Error in finding the user!');
             req.flash('error', err);
             return res.redirect('back');
         }
 
-        if(!user){
-            Practioner.findById(req.params.id, function(err, practioner){
-                if(err){
+        if (!user) {
+            Practioner.findById(req.params.id, function (err, practioner) {
+                if (err) {
                     console.log('Error in finding the practioner!');
                     req.flash('error', err);
                     return res.redirect('back');
@@ -120,8 +124,8 @@ module.exports.profile = function(req, res){
 }
 
 // Update Profile for User
-module.exports.update_profile = async function(req, res){
-    if(req.params.id = req.user.id){
+module.exports.update_profile = async function (req, res) {
+    if (req.params.id = req.user.id) {
         try {
             let user = await User.findById(req.params.id);
             user.name = req.body.name;
@@ -145,11 +149,11 @@ module.exports.update_profile = async function(req, res){
 }
 
 // Destroy Session for User
-module.exports.clear_session = function(req, res){
-    req.logout(function(err) {
-        if (err) { 
+module.exports.clear_session = function (req, res) {
+    req.logout(function (err) {
+        if (err) {
             req.flash('err', 'Error while Logging Out!');
-            return res.redirect('back'); 
+            return res.redirect('back');
         }
         req.flash('success', 'Logged Out Successfully!');
         res.redirect('/');
