@@ -138,6 +138,27 @@
                     }
                 });
             </script>
+            <script>
+
+                document.getElementById("timeForm").addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    // Get the opening and closing time values
+                    const openingTime = document.getElementById("openingTime").value;
+                    const closingTime = document.getElementById("closingTime").value;
+
+                    // Parse the time strings to Date objects
+                    const openingTimeDate = new Date(`2000-01-01T${openingTime}`);
+                    const closingTimeDate = new Date(`2000-01-01T${closingTime}`);
+
+                    // Check if closing time is later than opening time
+                    if (openingTimeDate >= closingTimeDate) {
+                        document.getElementById("validationMessage").textContent = "Closing time must be later than opening time.";
+                    } else {
+                        document.getElementById("validationMessage").textContent = "";
+                    }
+                });
+            </script>
 
 
 </body>
