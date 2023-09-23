@@ -9,4 +9,4 @@ async function main() {
   console.log("Successlly Connected to Database...!");
 }
 
-module.exports = db;
+// module.exports = db;
