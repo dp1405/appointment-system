@@ -1,17 +1,9 @@
-.myform,
-.first,
-.second {
-    display: flex;
-    flex-direction: column;
+* {
+    font-family: Quicksand, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
 }
 
-.first,
-.second {
-    display: flex;
-    background-color: aqua;
-}
-
-.mycontainer {
-    display: flex;
-    flex-direction: row;
+label {
+    font-size: medium;
+    font-weight: bold;
 }
