@@ -121,7 +121,7 @@
                 const dobInput = document.getElementById("dob");
                 const resultElement = document.getElementById("ageResult");
 
-                dobInput.addEventListener("select", function () {
+                dobInput.addEventListener("input", function () {
                     const dobValue = dobInput.value;
                     if (dobValue) {
                         const dobDate = new Date(dobValue);
