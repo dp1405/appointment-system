@@ -22,8 +22,8 @@ module.exports.create_session = function (req, res) {
     return res.redirect('/');
 }
 
-module.exports.details = function (req,res) {
-    return res.render('appointment_display',{
+module.exports.details = function (req, res) {
+    return res.render('appointment_display', {
         title: "Appointment Details",
     });
 }
