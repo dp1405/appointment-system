@@ -110,7 +110,7 @@ module.exports.view_appointments = async function(req, res){
         }
     }).exec();
 
-    return res.render('view_appointments', {
+    return res.render('view_appointment', {
         title: "Appointments | MediAssist",
         patient: patient
     });
