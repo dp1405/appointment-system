@@ -37,7 +37,7 @@ module.exports.submit_contact = async function(req, res){
         let user = await User.findOne({email: req.body.email})
         .populate('email', 'name');
 
-        contact_mailer.contact(user, req.body.message);
+        contact_mailer.contact(user, req.body.subject, req.body.message);
 
         return res.redirect('back');
 
