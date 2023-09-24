@@ -99,3 +99,19 @@ module.exports.book_appointment = async function(req, res){
         return res.redirect('back');
     }
 }
+
+// View Appointments
+module.exports.view_appointments = async function(req, res){
+    
+    let patient = await Patient.findOne({user: req.user._id}).populate({
+        path: 'appointments',
+        populate: {
+            path: 'patient'
+        }
+    }).exec();
+
+    return res.render('view_appointments', {
+        title: "Appointments | MediAssist",
+        patient: patient
+    });
+}
