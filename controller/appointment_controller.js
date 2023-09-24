@@ -46,7 +46,7 @@ module.exports.check_availability = async function(req, res){
                 });
 
                 newSlots.push(new_slot_dummy);
-                console.log(new_slot_dummy);
+                // console.log(new_slot_dummy);
             }
 
             // Insert the new slots into the database
@@ -57,9 +57,7 @@ module.exports.check_availability = async function(req, res){
         } else {
             slots = await Slot.find({date: date, is_booked: false});
         }
-
-
-
+        
         return res.render('appointment', {
             title: 'Appointment | MediAssist',
             slots: slots,
@@ -77,6 +75,7 @@ module.exports.book_appointment = async function(req, res){
     try {
         
         let slot = await Slot.findById(req.body.slot);
+        console.log('Slot: ', slot);
         slot.patient = req.user._id;
         slot.is_booked = true;
         slot.save();
