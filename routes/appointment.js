@@ -6,5 +6,6 @@ const passport = require('passport');
 const appointmentController = require('../controller/appointment_controller');
 
 router.get('/', passport.checkPatientPractitioner, appointmentController.appointment); //redirected to controller rendering appointment page
+router.post('/check-availability', passport.checkPatientPractitioner, appointmentController.check_availability); //redirected to controller checking availability of appointment
 
 module.exports = router;
