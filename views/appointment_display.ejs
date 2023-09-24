@@ -1,3 +1,15 @@
+<script>
+    var inputDateString = locals.slot.date;
+    var dateObject = new Date(inputDateString);
+
+    // Extract day, month, and year
+    var day = dateObject.getDate();
+    var month = dateObject.getMonth() + 1; // Note: Months are zero-based, so add 1
+    var year = dateObject.getFullYear();
+
+    // Format components into "dd-mm-yyyy" format
+    var formattedDate = `${(day < 10 ? "0" : "")}${day}-${(month < 10 ? "0" : "")}${month}-${year}`;
+</script>
 <section class="section confirmation">
     <div class="container">
         <div class="row justify-content-center">
@@ -13,20 +25,24 @@
 
     <div class="col-md-8 mx-auto" data-aos="fade-up" data-aos-delay="200">
         <div class="icon-box">
-            <h3>Name: manoj</h3>
-            <h4>email: abc@gmail.com</h4>
+            <h3>Name&nbsp;: <%=patient.name%>
+            </h3>
+            <h4>Email&nbsp;&nbsp;&nbsp;&nbsp;: <%=patient.email%>
+            </h4>
             <div class="row">
+                <div class="card text-center p-4 mt-4 h5">
+                    Date :<%= locals.slot.date %>
+                </div>
                 <div class="col-md-6 mx-auto">
-                    <div class="card text-center p-4 mt-4 h5">
-                        Date :1-1-2022
-                    </div>
                     <div class="card text-center p-4 h5">
-                        <div class="h5 m-2">
+                        <div class="h5 m-3">
                             Slot :
                         </div>
                         <div class="h5">
-                            <h6>Start time : 1:1</h6>
-                            <h6>End time &nbsp;&nbsp;: 1:1</h6>
+                            <h6>Start time : <%=locals.slot.start_time%>
+                            </h6>
+                            <h6>End time &nbsp;&nbsp;: <%=locals.slot.end_time%>
+                            </h6>
                         </div>
                     </div>
                 </div>
