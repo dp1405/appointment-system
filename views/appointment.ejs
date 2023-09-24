@@ -20,24 +20,17 @@
 </form>
 <%if(locals.available===true){%>
     <div class="card m-5">
+        <div class="card p-4 m-2">
+            Total available slots : <%= slots.length %>
+        </div>
         <form action="/users/appointment/book-appointment" method="post">
             <input class="form-control" type="date" id="dob" name="date" value="<%=locals.date%>"
                 style="visibility:hidden;">
-            <div class="card p-4 m-2">
-                Total available slots : <%= slots.length %>
-            </div>
-
-            <div class="form-check card m-4" onclick="selectmyRadio('NONE')">
-                <input class="form-check-input" type="radio" name="slots" id="NONE" checked>
-                <label class="form-check-label" for="flexRadioDefault1">
-                    None
-                </label>
-            </div>
 
             <%slots.forEach((element)=>{%>
                 <div class="btn btn-outline-success" onclick="selectmyRadio('<%=element.id%>')">
                     <div class="form-check card m-4">
-                        <input class="form-check-input" type="radio" name="slots" id="<%=element.id%>">
+                        <input class="form-check-input" type="radio" name="slot" value="<%=element.id%>" id="<%=element.id%>">
                         <label class="form-check-label" for="flexRadioDefault1">
                             <div>
                                 <div>
