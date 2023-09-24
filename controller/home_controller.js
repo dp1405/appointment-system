@@ -25,24 +25,24 @@ module.exports.doctors = function(req,res){
     });
 }
 
-// module.exports.submit_contact = async function(req, res){
+module.exports.submit_contact = async function(req, res){
     
-//     try{
+    try{
 
-//         if(!req.user){
-//             req.flash('error', 'You need to Login to send the Mail!');
-//             return res.redirect('back');
-//         }
+        if(!req.user){
+            req.flash('error', 'You need to Login to send the Mail!');
+            return res.redirect('back');
+        }
         
-//         let user = await User.findOne({email: req.body.email})
-//         .populate('email', 'name');
+        let user = await User.findOne({email: req.body.email})
+        .populate('email', 'name');
 
-//         contact_mailer.contact(user, req.body.message);
+        contact_mailer.contact(user, req.body.message);
 
-//         return res.redirect('back');
+        return res.redirect('back');
 
-//     } catch(err){
-//         console.log('Error: ', err);
-//     }
+    } catch(err){
+        console.log('Error: ', err);
+    }
     
-// }
+}

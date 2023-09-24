@@ -46,6 +46,10 @@ const patientScehma = new mongoose.Schema({
     history: {
         type: String
     },
+    appointments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Appointment'
+    }]
 
 },{
     timestamps: true

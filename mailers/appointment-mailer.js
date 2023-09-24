@@ -1,10 +1,10 @@
 const nodemailer = require('../config/nodemailer');
 
-exports.contact = function(user, contact_mail){
+exports.appointment = function(patient){
 
-    let htmlString = nodemailer.renderTemplate({user: user, contact_mail: contact_mail}, '/contact.ejs');
+    let htmlString = nodemailer.renderTemplate({patient: patient}, '/appointment.ejs');
     nodemailer.transporter.sendMail({
-        from: user.email,
+        from: patient.email,
         to: 'dharmeshkota123@gmail.com',
         subject: 'Appointment Booked!',
         html: htmlString
