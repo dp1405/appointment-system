@@ -20,6 +20,10 @@ const userScehma = new mongoose.Schema({
     role: {
         type: String,
         require: true
+    },
+    slot: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Slot'
     }
 },{
     timestamps: true

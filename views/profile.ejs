@@ -85,7 +85,7 @@
 
                         <div class="form-group my-2">
                             <label for="dob">Date of Birth:</label>
-                            <input class="form-control" type="text" id="dob" name="dob" value="<%=user.birth_date%>"
+                            <input class="form-control" type="date" id="dob" name="dob" value="<%=user.birth_date%>"
                                 placeholder="Select Date of Birth">
                         </div>
                         <div class="form-group my-2">
@@ -149,7 +149,7 @@
                                         <label for="openingTime">Opening time:</label>
                                         <div class="input-group w-50">
                                             <input type="time" class="form-control" id="openingTime" name="openingTime"
-                                                min="00:00" max="23:59">
+                                                value="<%=user.opening_time%>" min="00:00" max="23:59">
                                         </div>
                                     </div>
 
@@ -157,7 +157,7 @@
                                         <label for="closingTime">Closing time:</label>
                                         <div class="input-group w-50">
                                             <input type="time" class="form-control" id="closingTime" name="closingTime"
-                                                min="00:00" max="23:59">
+                                                value="<%=user.closing_time%>" min="00:00" max="23:59">
                                         </div>
                                     </div>
                                     <div class="text-danger" id="validationMessage"></div>
