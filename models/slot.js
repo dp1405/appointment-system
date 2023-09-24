@@ -5,6 +5,10 @@ const slotSchema = new mongoose.Schema({
   start_time: String,
   end_time: String,
   is_booked: Boolean,
+  patient: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Patient'
+  }
 }, {
     timestamps: true
 });

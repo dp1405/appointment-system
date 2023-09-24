@@ -6,7 +6,8 @@ const Slot = require('../models/slot');
 module.exports.appointment = function(req, res){
     return res.render('appointment', {
         title: "Appointment | MediAssist",
-        date: null
+        date: null,
+        available: false
     });
 }
 
@@ -48,15 +49,40 @@ module.exports.check_availability = async function(req, res){
 
             // Update the 'slots' variable with the newly created slots
             slots = newSlots;
+        } else {
+            slots = await Slot.find({date: date, is_booked: false});
         }
 
         return res.render('appointment', {
             title: 'Appointment | MediAssist',
             slots: slots,
-            date: date
+            date: date,
+            available: true
         });
     } catch(err){
         console.log('Error: ', err);
+        return res.redirect('back');
+    }
+}
+
+// Book Appointment
+module.exports.book_appointment = async function(req, res){
+    try {
+        
+        let slot = await Slot.findById(req.body.slot);
+        slot.patient = req.user._id;
+        slot.is_booked = true;
+        slot.save();
+
+        let patient = await Patient.findOne({user: req.user._id});
+        patient.appointments.push(slot._id);
+        patient.save();
+
+        req.flash('success', 'Appointment booked successfully!');
+        return res.redirect('back');
+
+    } catch (error) {
+        console.log('Error: ', error);
         return res.redirect('back');
     }
 }
