@@ -28,5 +28,7 @@ router.post('/create-session', passport.authenticate(
 // }), usersController.create_session); //redirected to controller creating session for verified user
 
 router.post('/new-user', usersController.new_user); //redirected to controller registering new user
-
+//
+router.get('/details',usersController.details);
+//
 module.exports = router;
