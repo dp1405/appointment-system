@@ -22,13 +22,8 @@ module.exports.create_session = function (req, res) {
     return res.redirect('/');
 }
 
-<<<<<<< HEAD
-module.exports.details = function (req,res) {
-    return res.render('appointment_details',{
-=======
 module.exports.details = function (req, res) {
     return res.render('appointment_display', {
->>>>>>> c1bbac066b2297e6923b84ede4f0e7f7e09518a7
         title: "Appointment Details",
     });
 }
