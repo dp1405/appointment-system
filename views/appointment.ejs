@@ -1,0 +1,19 @@
+<form action="/users/appointment/check-availability" method="post">
+    <div class="card m-4">
+        <div class="d-flex justify-content-center">
+            <div class="form-group m-4 w-25">
+                <label for="dob">Date:</label>
+                <%if(locals.date===null){%>
+                    <input class="form-control" type="date" id="dob" name="date" value="<%=user.birth_date%>"
+                        placeholder="Select Date of Birth">
+                    <%}else{%>
+                        <input class="form-control" type="date" id="dob" name="date" value="<%=locals.date%>"
+                            placeholder="Select Date of Birth">
+                        <%}%>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-success my-4 btn-lg" type="submit">Book</button>
+    </div>
+</form>
