@@ -9,13 +9,19 @@ module.exports.home = function(req, res){
 
 module.exports.about = function(req, res){
     return res.render('about', {
-        title: "{NAME} Clinics | About"
+        title: "MediAssist | About"
     });
 }
 
 module.exports.contact = function(req, res){
     return res.render('contact', {
-        title: "{NAME} Clinics | Contact US"
+        title: "MediAssist | Contact US"
+    });
+}
+
+module.exports.doctors = function(req,res){
+    return res.render('doctors', {
+        title: "MediAssist | Doctors"
     });
 }
 
