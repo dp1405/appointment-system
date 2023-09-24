@@ -36,14 +36,14 @@ passport.setAuthenticatedUser = function (req, res, next) {
 };
 
 // serializing the user to decide which key is to be kept in the cookies
-passport.serializeUser(function(user, done){
+passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
 
 // deserializing the user from the key in the cookies
-passport.deserializeUser(function(id, done){
-    User.findById(id, function(err, user){
-        if(err) {
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
+        if (err) {
             console.log('Error in finding the user through id obtained by deserializing');
             return done(err);
         }
@@ -52,8 +52,8 @@ passport.deserializeUser(function(id, done){
 });
 
 // verifying if the user is authentic
-passport.checkAuthentication = function(req, res, next){
-    if(req.isAuthenticated()){
+passport.checkAuthentication = function (req, res, next) {
+    if (req.isAuthenticated()) {
         // if the user is authenticated then proceed him from the sign in page
         return next();
     }
@@ -62,9 +62,11 @@ passport.checkAuthentication = function(req, res, next){
 }
 
 // check if the user is a builder
+
 passport.checkPatient = function(req, res, next){
     if(req.isAuthenticated()){
         if(req.user.role == 'patient'){
+
             return next();
         }
         return res.redirect('back');
@@ -73,9 +75,9 @@ passport.checkPatient = function(req, res, next){
 }
 
 // check if the user is a Practitioner
-passport.checkPractitioner = function(req, res, next){
-    if(req.isAuthenticated()){
-        if(req.user.role == 'practitioner'){
+passport.checkPractitioner = function (req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.role == 'practitioner') {
             return next();
         }
         return res.redirect('back');
@@ -84,9 +86,9 @@ passport.checkPractitioner = function(req, res, next){
 }
 
 // check if user is a builder or a Practitioner
-passport.checkPatientPractitioner = function(req, res, next){
-    if(req.isAuthenticated()){
-        if(req.user.role == 'practitioner' || req.user.role == 'patient'){
+passport.checkPatientPractitioner = function (req, res, next) {
+    if (req.isAuthenticated()) {
+        if (req.user.role == 'practitioner' || req.user.role == 'patient') {
             return next();
         }
         return res.redirect('back');

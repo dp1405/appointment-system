@@ -18,11 +18,33 @@
     </div>
 </form>
 <%if(locals.available===true){%>
-    <form action="/users/appointment/book-appointment" method="post">
-        <input class="form-control" type="date" id="dob" name="date" value="<%=locals.date%>"
-            placeholder="Select Date of Birth" visibility="">
-        <div class="text-center">
-            <button class="btn btn-success my-4 btn-lg" type="submit">Book</button>
-        </div>
-    </form>
+    <div class="card m-5">
+        <form action="/users/appointment/book-appointment" method="post">
+            <input class="form-control" type="date" id="dob" name="date" value="<%=locals.date%>"
+                placeholder="Select Date of Birth" visibility="">
+
+            <div class="form-check card m-4">
+                <input class="form-check-input" type="radio" name="slots" id="flexRadioDefault1" checked>
+                <label class="form-check-label" for="flexRadioDefault1">
+                    None
+                </label>
+            </div>
+            <div class="form-check card m-4">
+                <input class="form-check-input" type="radio" name="slots" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    <div class="card">
+                        <div>
+                            Start time : <%=slots[0].start_time%>
+                        </div>
+                        <div>
+                            End time : <%=slots[0].end_time%>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-success my-4 btn-lg" type="submit">Book</button>
+            </div>
+        </form>
+    </div>
     <%}%>
