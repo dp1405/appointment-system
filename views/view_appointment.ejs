@@ -1,0 +1,26 @@
+<h2> Removing the <i> last list item </i> from the list using JavaScript </h2>
+<ul id="cars">
+</ul>
+<input type="text" id="carName" />
+<button onclick="addCar()"> Add car </button>
+<button onclick="removeCar()"> Remove last car </button>
+<script>
+    var carList = document.getElementById("cars");
+    var carName = document.getElementById("carName");
+    function addCar() {
+        var li = document.createElement("li");
+        li.setAttribute('id', carName.value);
+        let text = document.createTextNode(carName.value);
+        li.appendChild(text);
+        carList.appendChild(li);
+    }
+    // function to remove the last element from the list
+    function removeCar() {
+        // select the last element
+        var lastElement = carList.lastElementChild;
+        // if the last element is present, then remove it
+        if (lastElement) {
+            carList.removeChild(lastElement);
+        }
+    }
+</script>

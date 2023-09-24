@@ -28,9 +28,10 @@
                 style="visibility:hidden;">
 
             <%slots.forEach((element)=>{%>
-                <div class="btn btn-outline-success" onclick="selectmyRadio('<%=element.id%>')">
-                    <div class="form-check card m-4">
-                        <input class="form-check-input" type="radio" name="slot" value="<%=element.id%>" id="<%=element.id%>">
+                <div class="btn btn-outline-success m-4" onclick="selectmyRadio('<%=element.id%>')">
+                    <div class="form-check m-4">
+                        <input class="form-check-input" type="radio" name="slot" value="<%=element.id%>"
+                            id="<%=element.id%>">
                         <label class="form-check-label" for="flexRadioDefault1">
                             <div>
                                 <div>

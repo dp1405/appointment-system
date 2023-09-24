@@ -4,7 +4,7 @@ const Slot = require('../models/slot');
 const appointment_mailer = require('../mailers/appointment-mailer');
 
 // Appointment Page Rendering
-module.exports.appointment = function(req, res){
+module.exports.appointment = function (req, res) {
     return res.render('appointment', {
         title: "Appointment | MediAssist",
         date: null,
@@ -13,13 +13,13 @@ module.exports.appointment = function(req, res){
 }
 
 // Check Availability of Appointment
-module.exports.check_availability = async function(req, res){
-    try{
+module.exports.check_availability = async function (req, res) {
+    try {
         let date = req.body.date;
-        let slots = await Slot.find({date: date});
-        console.log('Entered in slots section: ',slots);
+        let slots = await Slot.find({ date: date });
+        console.log('Entered in slots section: ', slots);
 
-        if(slots.length == 0){
+        if (slots.length == 0) {
             // slots = await Slot.create({
             //     date: date,
             //     is_booked: false
@@ -55,7 +55,7 @@ module.exports.check_availability = async function(req, res){
             // Update the 'slots' variable with the newly created slots
             slots = newSlots;
         } else {
-            slots = await Slot.find({date: date, is_booked: false});
+            slots = await Slot.find({ date: date, is_booked: false });
         }
 
         return res.render('appointment', {
@@ -64,23 +64,23 @@ module.exports.check_availability = async function(req, res){
             date: date,
             available: true
         });
-    } catch(err){
+    } catch (err) {
         console.log('Error: ', err);
         return res.redirect('back');
     }
 }
 
 // Book Appointment
-module.exports.book_appointment = async function(req, res){
+module.exports.book_appointment = async function (req, res) {
     try {
-        
+
         let slot = await Slot.findById(req.body.slot);
         console.log('Slot: ', slot);
         slot.patient = req.user._id;
         slot.is_booked = true;
         slot.save();
 
-        let patient = await Patient.findOne({user: req.user._id});
+        let patient = await Patient.findOne({ user: req.user._id });
         patient.appointments.push(slot._id);
         patient.save();
 
@@ -100,9 +100,9 @@ module.exports.book_appointment = async function(req, res){
 }
 
 // View Appointments
-module.exports.view_appointments = async function(req, res){
-    
-    let patient = await Patient.findOne({user: req.user._id}).populate({
+module.exports.view_appointments = async function (req, res) {
+
+    let patient = await Patient.findOne({ user: req.user._id }).populate({
         path: 'appointments',
         populate: {
             path: 'patient'
