@@ -1,3 +1,4 @@
+<div class="mt-5">&nbsp;</div>
 <form action="/users/appointment/check-availability" method="post">
     <div class="card m-4">
         <div class="d-flex justify-content-center">
@@ -7,7 +8,7 @@
                     <input class="form-control" type="date" id="dob" name="date" value="<%=user.birth_date%>"
                         placeholder="Select Date of Birth">
                     <%}else{%>
-                        <input class="form-control" type="date" id="dob" name="date" value="<%=locals.date%>"
+                        <input class="form-control" type="date" id="dob" name="date" value="<%= locals.date%>"
                             placeholder="Select Date of Birth">
                         <%}%>
             </div>
@@ -26,31 +27,40 @@
                 Total available slots : <%= slots.length %>
             </div>
 
-            <div class="form-check card m-4">
-                <input class="form-check-input" type="radio" name="slots" id="flexRadioDefault1" checked>
+            <div class="form-check card m-4" onclick="selectmyRadio('NONE')">
+                <input class="form-check-input" type="radio" name="slots" id="NONE" checked>
                 <label class="form-check-label" for="flexRadioDefault1">
                     None
                 </label>
             </div>
 
             <%slots.forEach((element)=>{%>
-                <div class="form-check card m-4">
-                    <input class="form-check-input" type="radio" name="slots" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        <div>
+                <div class="btn btn-outline-success" onclick="selectmyRadio('<%=element.id%>')">
+                    <div class="form-check card m-4">
+                        <input class="form-check-input" type="radio" name="slots" id="<%=element.id%>">
+                        <label class="form-check-label" for="flexRadioDefault1">
                             <div>
-                                Start time : <%=element.start_time%>
+                                <div>
+                                    Start time : <%=element.start_time%>
+                                </div>
+                                <div>
+                                    End time : <%=element.end_time%>
+                                </div>
                             </div>
-                            <div>
-                                End time : <%=element.end_time%>
-                            </div>
-                        </div>
-                    </label>
+                        </label>
+                    </div>
                 </div>
-                <%})%>
+                <%});%>
                     <div class="text-center">
                         <button class="btn btn-success my-4 btn-lg" type="submit">Book</button>
                     </div>
         </form>
     </div>
     <%}%>
+
+        <script>
+            function selectmyRadio(id) {
+                var radioButton = document.getElementById(id);
+                radioButton.checked = true;
+            }
+        </script>
