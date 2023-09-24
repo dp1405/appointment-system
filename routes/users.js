@@ -11,6 +11,7 @@ router.get('/sign-up', usersController.sign_up); //redirected to controller rend
 router.get('/sign-out', passport.checkPatientPractitioner, usersController.clear_session); //redirected to controller signing out user
 router.get('/profile/:id', passport.checkPatientPractitioner, usersController.profile); //redirected to controller signing out user
 router.post('/update-profile/:id', passport.checkPatientPractitioner, usersController.update_profile); //redirected to controller updating user profile
+router.use('/appointment', require('./appointment')); //redirected to controller rendering users page
 
 router.post('/create-session', passport.authenticate(
     'local',
