@@ -64,7 +64,7 @@ passport.checkAuthentication = function(req, res, next){
 // check if the user is a builder
 passport.checkPatient = function(req, res, next){
     if(req.isAuthenticated()){
-        if(req.user.role == 'builder'){
+        if(req.user.role == 'patient'){
             return next();
         }
         return res.redirect('back');
