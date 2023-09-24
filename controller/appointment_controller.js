@@ -57,7 +57,7 @@ module.exports.check_availability = async function(req, res){
         } else {
             slots = await Slot.find({date: date, is_booked: false});
         }
-        
+
         return res.render('appointment', {
             title: 'Appointment | MediAssist',
             slots: slots,
@@ -87,7 +87,7 @@ module.exports.book_appointment = async function(req, res){
         appointment_mailer.appointment(patient);
 
         req.flash('success', 'Appointment booked successfully!');
-        return res.render('appointment_draft', {
+        return res.render('appointment_display', {
             title: "Appointment | MediAssist",
             slot: slot,
             patient: patient
