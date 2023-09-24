@@ -23,7 +23,7 @@ module.exports.create_session = function (req, res) {
 }
 
 module.exports.details = function (req,res) {
-    return res.render('appointment_draft',{
+    return res.render('appointment_details',{
         title: "Appointment Details",
     });
 }
