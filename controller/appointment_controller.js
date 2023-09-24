@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Patient = require('../models/patient');
 const Slot = require('../models/slot');
+const appointment_mailer = require('../mailers/appointment-mailer');
 
 // Appointment Page Rendering
 module.exports.appointment = function(req, res){
@@ -57,6 +58,8 @@ module.exports.check_availability = async function(req, res){
             slots = await Slot.find({date: date, is_booked: false});
         }
 
+
+
         return res.render('appointment', {
             title: 'Appointment | MediAssist',
             slots: slots,
@@ -82,8 +85,14 @@ module.exports.book_appointment = async function(req, res){
         patient.appointments.push(slot._id);
         patient.save();
 
+        appointment_mailer.appointment(patient);
+
         req.flash('success', 'Appointment booked successfully!');
-        return res.redirect('back');
+        return res.render('appointment_draft', {
+            title: "Appointment | MediAssist",
+            slot: slot,
+            patient: patient
+        });
 
     } catch (error) {
         console.log('Error: ', error);
