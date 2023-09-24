@@ -34,10 +34,10 @@ module.exports.new_user = async function (req, res) {
         try {
             user = await User.create(req.body);
             console.log('Creating user');
-            if(req.body.role == 'practitioner'){
+            if (req.body.role == 'practitioner') {
                 console.log('Creating Practitioner: ', user._id, user.name, user.username, user.email, user.password, user.role);
                 await Practioner.create({
-                    user : user._id,
+                    user: user._id,
                     name: user.name,
                     username: user.username,
                     email: user.email,
@@ -51,7 +51,7 @@ module.exports.new_user = async function (req, res) {
                     username: user.username,
                     email: user.email,
                     password: user.password,
-                    role: user.role    
+                    role: user.role
                 });
             }
 
@@ -73,11 +73,11 @@ module.exports.new_user = async function (req, res) {
 module.exports.profile = async function (req, res) {
     try {
         let user = await User.findById(req.params.id);
-        
-        if(user.role == 'practitioner'){
-            user = await Practioner.findOne({user: req.params.id});
+
+        if (user.role == 'practitioner') {
+            user = await Practioner.findOne({ user: req.params.id });
         } else {
-            user = await Patient.findOne({user: req.params.id});
+            user = await Patient.findOne({ user: req.params.id });
         }
 
         return res.render('profile', {
@@ -100,8 +100,8 @@ module.exports.update_profile = async function (req, res) {
     if (req.params.id = req.user.id) {
         try {
             let user = await User.findById(req.params.id);
-            if(user.role == 'patient'){
-                user = await Patient.findOne({user: req.params.id});
+            if (user.role == 'patient') {
+                user = await Patient.findOne({ user: req.params.id });
                 user.name = req.body.name;
                 user.email = req.body.email;
                 user.username = req.body.username;
@@ -109,12 +109,13 @@ module.exports.update_profile = async function (req, res) {
                 user.weight = req.body.weight;
                 user.height = req.body.height;
                 user.birth_date = req.body.birth_date;
+                console.log(user.birth_date);
                 user.contact = req.body.contact;
                 user.address = req.body.address;
                 user.history = req.body.history;
                 user.save();
             } else {
-                user = await Practioner.findOne({user: req.params.id});
+                user = await Practioner.findOne({ user: req.params.id });
                 user.name = req.body.name;
                 user.email = req.body.email;
                 user.username = req.body.username;
